@@ -1,4 +1,6 @@
-﻿namespace EESTEC.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EESTEC.Models
 {
     public class PartnerCategory
     {

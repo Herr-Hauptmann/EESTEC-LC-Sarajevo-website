@@ -1,0 +1,59 @@
+﻿@using EESTEC.Data.Enum
+@model LocalEvent;
+@section Scripts {
+<script type="text/javascript" src="~/js/formValidation.js" defer></script>
+}
+<div class="container">
+    <h1>Kreiranje lokalnog eventa</h1>
+    <form method="post" asp-action="Create" enctype="multipart/form-data" class="needs-validation" novalidate>
+        <div class=mb-3>
+            <label for="title" class="form-label">Naziv lokalnog događaja</label>
+            <input type="text" class="form-control" id="title" asp-for="Title" required>
+            <div class="valid-feedback">
+                Sve okej!
+            </div>
+            <div class="invalid-feedback">
+                Naziv događaja je obavezan!
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="type" class="form-label">Tip događaja</label>
+                <select class="form-select" id="type" asp-items="Html.GetEnumSelectList<EventType>()" required>
+                    <option selected="selected" value="">Odaberi tip događaja</option>
+                </select>
+                <div class="valid-feedback">
+                    Sve okej!
+                </div>
+                <div class="invalid-feedback">
+                    Obavezno odabrati tip događaja!
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 mb-3">
+                <label for="date" class="form-label">Datum održavanja</label>
+                <input type="date" class="form-control" id="date" asp-for="Date" required>
+                <div class="valid-feedback">
+                    Sve okej!
+                </div>
+                <div class="invalid-feedback">
+                    Obavezno izabrati validan datum održavanja događaja!
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis događaja</label>
+            <textarea class="form-control" id="description" asp-for="Description" rows="3" required></textarea>
+            <div class="valid-feedback">
+                Sve okej!
+            </div>
+            <div class="invalid-feedback">
+                Opis događaja je obavezan!
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary d-inline mr-2" type="submit">Sačuvaj</button>
+            <button class="btn btn-danger d-inline mr-2" type="reset">Odustani</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+﻿@model IEnumerable<LocalEvent> 
+
+
+<h1>Ovo su lokalni eventovi</h1>
+
+@foreach(var localEvent in Model){
+   <p>@localEvent.Title</p>
+}
