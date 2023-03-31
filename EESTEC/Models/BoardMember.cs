@@ -17,8 +17,6 @@ namespace EESTEC.Models
         [Required]
         public Position Position { get; set; }
         public string LinkedIn { get; set; }
-        [ForeignKey("Board")]
-        public int BoardId { get; set; }
         public Board Board { get; set; }
     }
 }

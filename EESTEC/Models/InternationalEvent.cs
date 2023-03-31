@@ -19,9 +19,6 @@ namespace EESTEC.Models
         public DateTime Deadline { get; set; }
         [Required]
         public DateTime Date { get; set; }
-
-        [ForeignKey("User")]
-        public int UserId { get; set; }
         public User user { get; set; }
     }
 }

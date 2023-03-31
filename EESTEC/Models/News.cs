@@ -15,9 +15,6 @@ namespace EESTEC.Models
         public string Image { get; set; }
         [Required]
         public string Content { get; set; }
-
-        [ForeignKey("User")]
-        public int UserId { get; set; }
         public User user { get; set; }
     }
 }
