@@ -3,6 +3,10 @@
 @section Scripts {
 <script type="text/javascript" src="~/js/formValidation.js" defer></script>
 }
+
+@{
+  ViewData["Title"] = "Kreiraj događaj";
+}
 <div class="container mt-3">
     <h1>Kreiranje lokalnog eventa</h1>
     <form method="post" asp-action="Create" enctype="multipart/form-data" class="needs-validation" novalidate>

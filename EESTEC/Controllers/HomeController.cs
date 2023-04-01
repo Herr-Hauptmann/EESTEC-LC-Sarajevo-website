@@ -1,4 +1,5 @@
-﻿using EESTEC.Models;
+﻿using EESTEC.Interfaces;
+using EESTEC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,9 +7,14 @@ namespace EESTEC.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            
             return View();
+        }
+        public IActionResult AboutPartial()
+        {
+            return PartialView("_About");
         }
         
 

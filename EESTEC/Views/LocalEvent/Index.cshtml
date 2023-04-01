@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<LocalEvent>
-
 @{
   ViewData["Title"] = "Lokalni događaji";
 }
@@ -27,7 +26,7 @@
                     <td class="align-middle" scope="row">@localEvent.Id</td>
                     <td class="align-middle" scope="row">@localEvent.Title</td>
                     <td class="align-middle" scope="row">@localEvent.Description</td>
-                    <td class="align-middle" scope="row">@localEvent.Date</td>
+                    <td class="align-middle" scope="row">@localEvent.Date.ToString("dd.MM.yyyy.")</td>
                     <td class="align-middle" scope="row">
                         <div>
                             <a class="btn btn-success mr-2 my-1 d-block d-lg-inline" asp-controller="LocalEvent" asp-action="Edit" asp-route-id="@localEvent.Id">Uredi</a>

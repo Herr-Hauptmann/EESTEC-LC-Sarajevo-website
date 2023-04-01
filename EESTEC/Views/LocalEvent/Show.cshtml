@@ -1,0 +1,15 @@
+﻿@{
+  ViewData["Title"] = "Lokalni događaji";
+}
+
+<div class="container">
+    <div id="about"></div>
+    <div id="localEvents"></div>
+</div>
+
+@section Scripts{
+<script>
+    $("#localEvents").load("/LocalEvent/LocalEventsPartial")
+    $("#about").load("/Home/AboutPartial")
+</script>
+}

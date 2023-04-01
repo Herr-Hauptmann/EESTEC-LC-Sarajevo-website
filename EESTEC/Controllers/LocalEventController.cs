@@ -83,5 +83,22 @@ namespace EESTEC.Controllers
             _localEventRepository.Delete(localEvent);
             return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> LocalEventsPartial()
+        {
+            var localEvents = await _localEventRepository.GetMostRecent();
+            return PartialView("~/Views/LocalEvent/_LocalEvents.cshtml", localEvents);
+        }
+
+        public async Task<IActionResult> AllLocalEventsPartial()
+        {
+            var localEvents = await _localEventRepository.GetAll();
+            return PartialView("~/Views/LocalEvent/_LocalEvents.cshtml", localEvents);
+        }
+
+        public IActionResult Show()
+        {
+            return View();
+        }
     }
 }

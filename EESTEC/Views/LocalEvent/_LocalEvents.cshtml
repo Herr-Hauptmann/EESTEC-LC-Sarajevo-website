@@ -1,0 +1,22 @@
+﻿@model IEnumerable<LocalEvent>
+
+<ul class="timeline red">
+    @{
+        var count = 0;
+        string left = "direction-l";
+        string right = "direction-r";
+    }
+    @foreach (var localEvent in Model)
+    {
+        <li>
+            <div class="@((count%2==1)?left:right)">
+                <div class="flag-wrapper">
+                    <span class="flag">@localEvent.Title</span>
+                    <span class="time-wrapper"><span class="time">@localEvent.Date.ToString("dd.MM.yyyy.")</span></span>
+                </div>
+                <div class="desc">@localEvent.Description</div>
+            </div>
+        </li>
+        count++;
+    }
+</ul>
