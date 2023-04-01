@@ -1,0 +1,46 @@
+﻿@using EESTEC.ViewModel
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Registracija";
+}
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="col-12 col-lg-4">
+            @if (TempData["Error"] != null)
+            {
+                <div class="col-md-12 alert alert-danger">
+                    <span><strong>Greška!</strong> - @TempData["Error"]</span>
+                </div>
+            }
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Ime i prezime</label>
+                    <input asp-for="Name" type="text" class="form-control" id="userName">
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" id="email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Lozinka</label>
+                    <input asp-for="Password" type="password" class="form-control" id="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div><div class="mb-3">
+                    <label asp-for="ConfirmPassword" class="form-label">Potvrda lozinke</label>
+                    <input asp-for="ConfirmPassword" type="password" class="form-control" id="ConfirmPassword" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Keyword" class="form-label">Keyword</label>
+                    <input asp-for="Keyword" type="text" class="form-control" id="keyword">
+                    <span asp-validation-for="Keyword" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-primary">Registruj se</button>
+            </form>
+        </div>
+    </div>
+</div>

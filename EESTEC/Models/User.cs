@@ -7,5 +7,6 @@ namespace EESTEC.Models
     [Table("AspNetUsers")]
     public class User : IdentityUser
     {
+        public string Name { get; set; }
     }
 }

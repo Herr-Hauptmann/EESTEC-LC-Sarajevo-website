@@ -4,7 +4,7 @@ namespace EESTEC.ViewModel
 {
     public class LoginViewModel
     {
-        [Display(Name="Email")]
+        [Display(Name = "Email")]
         [Required]
         public string Email { get; set; }
         [Required]
