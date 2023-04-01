@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="bs">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-dark bg-dark navbar-expand-lg mb-3">
+        <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
             <div class="container-fluid">
                 <img class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" src="~/img/logoWhite.png" width="75px" />
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                                     <li><a class="dropdown-item text-white" href="#">Novosti</a></li>
                                     <li><a class="dropdown-item text-white" href="#">Partneri</a></li>
                                     <li><a class="dropdown-item text-white" href="#">Međunarodni događaji</a></li>
-                                    <li><a class="dropdown-item text-white" href="#">Lokalni događaji</a></li>
+                                    <li><a class="dropdown-item text-white" asp-controller="LocalEvent" asp-action="Index">Lokalni događaji</a></li>
                                     <li><a class="dropdown-item text-white" href="#">Upravni odbori</a></li>
                                 </ul>
                             </li>
@@ -66,11 +66,9 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
     <footer class="border-top footer text-muted">
         <div class="container text-center">

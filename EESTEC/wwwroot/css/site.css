@@ -16,3 +16,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.landing-image {
+    background-image: url("../img/landing-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+}

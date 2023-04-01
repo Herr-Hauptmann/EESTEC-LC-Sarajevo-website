@@ -1,9 +1,12 @@
 ﻿@model IEnumerable<LocalEvent>
 
+@{
+  ViewData["Title"] = "Lokalni događaji";
+}
 
-<h1>Pregled lokalnih događaja</h1>
+<div class="container mt-3">
+    <h1>Pregled lokalnih događaja</h1>
 
-<div class="container">
     <div class="d-flex flex-row-reverse">
          <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
     </div>
@@ -27,8 +30,10 @@
                     <td class="align-middle" scope="row">@localEvent.Date</td>
                     <td class="align-middle" scope="row">
                         <div>
-                            <button class="btn btn-success mr-2">Uredi</button>
-                            <button class="btn btn-danger mr-2">Izbriši</button>
+                            <a class="btn btn-success mr-2 my-1 d-block d-lg-inline" asp-controller="LocalEvent" asp-action="Edit" asp-route-id="@localEvent.Id">Uredi</a>
+                            <form asp-controller="LocalEvent" asp-action="Delete", asp-route-id="@localEvent.Id" method="post" class="d-lg-inline">
+                                <button class="btn btn-danger mr-2 d-block d-lg-inline my-1" type="submit">Izbriši</button>
+                            </form>
                         </div>
                     </td>
                 </tr>

@@ -28,17 +28,15 @@ namespace EESTEC.Repository
             _context.Remove(localEvent);
             return Save();
         }
-
-        
-
-        public Task<LocalEvent> GetById(int id)
+        public async Task<LocalEvent> GetById(int id)
         {
-            throw new NotImplementedException();
+            var localEvent = await _context.LocalEvents.FindAsync(id);
+            return localEvent;
         }
-
         public bool Update(LocalEvent localEvent)
         {
-            throw new NotImplementedException();
+            _context.LocalEvents.Update(localEvent);
+            return Save();
         }
         public bool Save()
         {

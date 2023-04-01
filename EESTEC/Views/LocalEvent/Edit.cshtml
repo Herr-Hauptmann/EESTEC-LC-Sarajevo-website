@@ -1,14 +1,16 @@
 ﻿@using EESTEC.Data.Enum
-@model LocalEvent;
+@using EESTEC.ViewModel
+@model EditLocalEventViewModel;
 @section Scripts {
 <script type="text/javascript" src="~/js/formValidation.js" defer></script>
 }
 <div class="container mt-3">
-    <h1>Kreiranje lokalnog eventa</h1>
-    <form method="post" asp-action="Create" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <h1>Uređivanje lokalnog eventa</h1>
+    <form method="post" asp-action="Edit" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class=mb-3>
-            <label for="title" class="form-label">Naziv lokalnog događaja</label>
-            <input type="text" class="form-control" id="title" asp-for="Title" required>
+            <label asp-for="Title" class="form-label">Naziv lokalnog događaja</label>
+            <input asp-for="Title" type="text" class="form-control" id="title"  required>
+            <span asp-validation-for="Title" class="text-danger"></span>
             <div class="valid-feedback">
                 Sve okej!
             </div>
@@ -18,10 +20,11 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-6 mb-3">
-                <label for="type" class="form-label">Tip događaja</label>
-                <select class="form-select" id="type" asp-items="Html.GetEnumSelectList<EventType>()" required>
+                <label asp-for="EventType"  for="type" class="form-label">Tip događaja</label>
+                <select asp-for="EventType" class="form-select" id="type" asp-items="Html.GetEnumSelectList<EventType>()" required>
                     <option selected="selected" value="">Odaberi tip događaja</option>
                 </select>
+                 <span asp-validation-for="EventType" class="text-danger"></span>
                 <div class="valid-feedback">
                     Sve okej!
                 </div>
@@ -30,8 +33,9 @@
                 </div>
             </div>
             <div class="col-12 col-lg-6 mb-3">
-                <label for="date" class="form-label">Datum održavanja</label>
-                <input type="date" class="form-control" id="date" asp-for="Date" required>
+                <label asp-for="Date" for="date" class="form-label">Datum održavanja</label>
+                <input asp-for="Date" type="date" class="form-control" id="date" required>
+                <span asp-validation-for="Date" class="text-danger"></span>
                 <div class="valid-feedback">
                     Sve okej!
                 </div>
@@ -44,6 +48,7 @@
         <div class="mb-3">
             <label for="description" class="form-label">Opis događaja</label>
             <textarea class="form-control" id="description" asp-for="Description" rows="3" required></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
             <div class="valid-feedback">
                 Sve okej!
             </div>
