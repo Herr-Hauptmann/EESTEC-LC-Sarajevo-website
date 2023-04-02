@@ -1,6 +1,7 @@
 ﻿using EESTEC.Interfaces;
 using EESTEC.Models;
 using EESTEC.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EESTEC.Controllers
@@ -13,18 +14,20 @@ namespace EESTEC.Controllers
         {
             _partnerCategoryRepository = partnerCategoryRepository;
         }
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var partnerCategories = await _partnerCategoryRepository.GetAllAsync();
             return View(partnerCategories);
         }
-
+        [Authorize]
         public IActionResult Create()
         {
             var partnerCategoryVM = new PartnerCategoryViewModel();
             return View(partnerCategoryVM);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(PartnerCategoryViewModel partnerCategoryVM)
         {
@@ -38,7 +41,7 @@ namespace EESTEC.Controllers
             _partnerCategoryRepository.Create(partnerCategory);
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var partnerCategory = await _partnerCategoryRepository.GetByIdAsync(id);
@@ -54,6 +57,7 @@ namespace EESTEC.Controllers
             return View(partnerCategoryVM);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, PartnerCategoryViewModel partnerCategoryVM)
         {
@@ -72,7 +76,7 @@ namespace EESTEC.Controllers
             _partnerCategoryRepository.Update(partnerCategory);
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {

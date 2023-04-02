@@ -2,6 +2,7 @@
 using EESTEC.Interfaces;
 using EESTEC.Models;
 using EESTEC.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EESTEC.Controllers
@@ -14,6 +15,7 @@ namespace EESTEC.Controllers
         {
             _localEventRepository = localEventRepository;
         }
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -21,6 +23,7 @@ namespace EESTEC.Controllers
             return View(events);
         }
         
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
@@ -35,6 +38,7 @@ namespace EESTEC.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -53,6 +57,7 @@ namespace EESTEC.Controllers
             return View(editVM);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Edit(int id, EditLocalEventViewModel eventVM)
         {
@@ -74,6 +79,7 @@ namespace EESTEC.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
