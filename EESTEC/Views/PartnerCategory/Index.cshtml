@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PartnerCategory>
+@{
+  ViewData["Title"] = "Kategorije partnera";
+}
+
+<div class="container mt-3">
+    <h1>Pregled lokalnih događaja</h1>
+
+    <div class="d-flex flex-row-reverse">
+         <a class="btn btn-outline-dark" asp-controller="PartnerCategory" asp-action="Create">Dodaj kategoriju partnera</a>
+    </div>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Redoslijed prikazivnja</th>
+                <th scope="col">Naziv kategorije</th>
+                <th scope="col">Broj partnera</th>
+                <th scope="col">Opcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var @partnerCategory in Model)
+            {
+                <tr>
+                    <td class="align-middle" scope="row">@partnerCategory.DisplayOrder</td>
+                    <td class="align-middle" scope="row">@partnerCategory.Name</td>
+                    <td class="align-middle" scope="row">@partnerCategory.Partners.Count</td>
+                    <td class="align-middle" scope="row">
+                        <div>
+                            <a class="btn btn-success mr-2 my-1 d-block d-lg-inline" asp-controller="PartnerCategory" asp-action="Edit" asp-route-id="@partnerCategory.Id">Uredi</a>
+                            <form asp-controller="PartnerCategory" asp-action="Delete", asp-route-id="@partnerCategory.Id" method="post" class="d-lg-inline">
+                                <button class="btn btn-danger mr-2 d-block d-lg-inline my-1" type="submit">Izbriši</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+

@@ -1,0 +1,86 @@
+﻿using EESTEC.Interfaces;
+using EESTEC.Models;
+using EESTEC.ViewModel;
+using Microsoft.AspNetCore.Mvc;
+
+namespace EESTEC.Controllers
+{
+    public class PartnerCategoryController : Controller
+    {
+        private readonly IPartnerCategoryRepository _partnerCategoryRepository;
+
+        public PartnerCategoryController(IPartnerCategoryRepository partnerCategoryRepository)
+        {
+            _partnerCategoryRepository = partnerCategoryRepository;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var partnerCategories = await _partnerCategoryRepository.GetAllAsync();
+            return View(partnerCategories);
+        }
+
+        public IActionResult Create()
+        {
+            var partnerCategoryVM = new PartnerCategoryViewModel();
+            return View(partnerCategoryVM);
+        }
+
+        [HttpPost]
+        public IActionResult Create(PartnerCategoryViewModel partnerCategoryVM)
+        {
+            if (!ModelState.IsValid)
+                return View(partnerCategoryVM);
+            var partnerCategory = new PartnerCategory
+            {
+                Name = partnerCategoryVM.Name,
+                DisplayOrder = partnerCategoryVM.DisplayOrder,
+            };
+            _partnerCategoryRepository.Create(partnerCategory);
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var partnerCategory = await _partnerCategoryRepository.GetByIdAsync(id);
+            if (partnerCategory == null)
+            {
+                return View("Error");
+            }
+            var partnerCategoryVM = new PartnerCategoryViewModel
+            {
+                Name = partnerCategory.Name,
+                DisplayOrder = partnerCategory.DisplayOrder,
+            };
+            return View(partnerCategoryVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, PartnerCategoryViewModel partnerCategoryVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Greška pri uređivanju lokalnog događaja!");
+                return View("Edit", partnerCategoryVM);
+            }
+            var partnerCategory = await _partnerCategoryRepository.GetByIdAsync(id);
+            if (partnerCategory == null)
+                return View("Edit", partnerCategoryVM);
+
+            partnerCategory.Name = partnerCategoryVM.Name;
+            partnerCategory.DisplayOrder = partnerCategoryVM.DisplayOrder;
+
+            _partnerCategoryRepository.Update(partnerCategory);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var partnerCategory = await _partnerCategoryRepository.GetByIdAsync(id);
+            if (partnerCategory == null)
+                return RedirectToAction("Index");
+            _partnerCategoryRepository.Delete(partnerCategory);
+            return RedirectToAction("Index");
+        }
+    }
+}

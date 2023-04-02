@@ -1,0 +1,26 @@
+﻿@using EESTEC.ViewModel;
+@model PartnerCategoryViewModel;
+
+@{
+  ViewData["Title"] = "Uredi događaj";
+}
+
+<div class="container mt-5">
+    <h1>Uređivanje kategorije partnera</h1>
+    <form asp-controller="PartnerCategory" asp-action="Edit" asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div class=mb-3>
+            <label asp-for="Name" class="form-label">Naziv kategorije partnera</label>
+            <input asp-for="Name" type="text" class="form-control" id="name"  required>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class=mb-3>
+            <label asp-for="DisplayOrder" class="form-label">Redoslijed prikazivanja partnera</label>
+            <input asp-for="DisplayOrder" type="number" class="form-control" required placeholder="">
+            <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+        </div>
+        <div>
+            <button class="btn btn-primary d-inline mr-2" type="submit">Sačuvaj</button>
+            <a class="btn btn-danger d-inline mr-2" type="reset"  asp-area="" asp-controller="PartnerCategory" asp-action="Index">Odustani</a>
+        </div>
+    </form>
+</div>

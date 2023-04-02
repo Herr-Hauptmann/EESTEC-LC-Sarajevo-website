@@ -10,7 +10,6 @@ namespace EESTEC.Models
         public string Name { get; set; }
         [Required]
         public int DisplayOrder { get; set; }
-
         public ICollection<Partner> Partners { get; set; }
     }
 }

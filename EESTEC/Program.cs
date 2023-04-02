@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 });
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped<ILocalEventRepository, LocalEventRepository>();
+builder.Services.AddScoped<IPartnerCategoryRepository, PartnerCategoryRepository>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
 var app = builder.Build();

@@ -11,7 +11,6 @@ namespace EESTEC.Models
         [Required]
         public string Image { get; set; }
         public string Website { get; set; }
-
         public PartnerCategory PartnerCategory { get; set; }
     }
 }
