@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Partner>
+@{
+  ViewData["Title"] = "Partneri";
+}
+
+<div class="container mt-3">
+    <h1>Pregled partnera</h1>
+
+    <div class="d-flex flex-row-reverse">
+         <a class="btn btn-outline-dark ms-2" asp-controller="PartnerCategory" asp-action="Index">Upravljanje kategorijama partnera</a>
+         <a class="btn btn-outline-dark ms-2" asp-controller="Partner" asp-action="Create">Dodaj partnera</a>
+    </div>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Naziv partnera</th>
+                <th scope="col">Web stranica</th>
+                <th scope="col">Naziv kategorije</th>
+                <th scope="col">Opcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var @partner in Model)
+            {
+                <tr>
+                    <td class="align-middle" scope="row">@partner.Id</td>
+                    <td class="align-middle" scope="row">@partner.Name</td>
+                    <td class="align-middle" scope="row">@partner.Website</td>
+                    <td class="align-middle" scope="row">@partner.PartnerCategory.Name</td>
+                    <td class="align-middle" scope="row">
+                        <div>
+                            <a class="btn btn-success mr-2 my-1 d-block d-lg-inline" asp-controller="Partner" asp-action="Edit" asp-route-id="@partner.Id">Uredi</a>
+                            <form asp-controller="Partner" asp-action="Delete", asp-route-id="@partner.Id" method="post" class="d-lg-inline">
+                                <button class="btn btn-danger mr-2 d-block d-lg-inline my-1" type="submit">Izbriši</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

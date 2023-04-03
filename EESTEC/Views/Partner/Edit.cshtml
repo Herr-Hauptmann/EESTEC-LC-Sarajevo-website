@@ -1,0 +1,43 @@
+﻿@using EESTEC.ViewModel
+@model CreatePartnerViewModel
+
+@{
+    ViewData["Title"] = "Uređivanje partnera";
+}
+
+<div class="container mt-3">
+    <h1>Uređivanje partnera</h1>
+    <form class="mt-2" asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div class=mb-3>
+            <label asp-for="Name" class="form-label">Naziv partnera</label>
+            <input asp-for="Name" type="text" class="form-control" id="name" required>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class=mb-3>
+            <label asp-for="Website" class="form-label">Link na web stranicu</label>
+            <input asp-for="Website" type="text" class="form-control">
+            <span asp-validation-for="Website" class="text-danger"></span>
+        </div>
+        <div class=mb-3>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <label asp-for="SelectedCategory" class="form-label">Kategorija partnera</label>
+                    <select class="form-select" asp-items="Model.PartnerCategoriesSelectList" asp-for="SelectedCategory">
+                    </select>
+                    <span asp-validation-for="SelectedCategory" class="text-danger"></span>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <label asp-for="Image" class="form-label">Logotip partnera</label>
+                    @*<input asp-for="Image" type="file" class="form-control" required>*@
+                    <input asp-for="Image" type="text" class="form-control" required>
+                    <span asp-validation-for="Image" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary d-inline mr-2" type="submit">Sačuvaj</button>
+            <a class="btn btn-danger d-inline mr-2" type="reset" asp-area="" asp-controller="Partner" asp-action="Index">Odustani</a>
+        </div>
+    </form>
+
+</div>

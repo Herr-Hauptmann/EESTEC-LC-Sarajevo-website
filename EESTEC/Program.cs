@@ -5,6 +5,7 @@ using EESTEC.Models;
 using EESTEC.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using EESTEC.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddScoped<ILocalEventRepository, LocalEventRepository>();
 builder.Services.AddScoped<IPartnerCategoryRepository, PartnerCategoryRepository>();
+builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 var app = builder.Build();
 
