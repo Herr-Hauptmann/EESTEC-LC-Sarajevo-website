@@ -27,13 +27,12 @@ namespace EESTEC.Services
                 var uploadParams = new ImageUploadParams
                 {
                     File = new FileDescription(file.FileName, stream),
-                    Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
+                    Transformation = new Transformation().Quality("auto").FetchFormat("auto")
                 };
                 uploadResult = await _cloudinary.UploadAsync(uploadParams);
             }
             return uploadResult;
         }
-
         public async Task<DeletionResult> DeletePhotoAsync(string publicId)
         {
             var deleteParams = new DeletionParams(publicId);

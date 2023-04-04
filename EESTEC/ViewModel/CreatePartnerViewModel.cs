@@ -9,7 +9,7 @@ namespace EESTEC.ViewModel
         [Required(ErrorMessage = "Naziv partnera je obavezan")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Logotip partnera je obavezan")]
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
         public string Website { get; set; }
 
         [Required(ErrorMessage = "Obavezno odabrati kategoriju partnera")]

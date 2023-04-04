@@ -1,7 +1,7 @@
 ﻿@using EESTEC.ViewModel
 @model CreatePartnerViewModel
 @{
-   ViewData["Title"] = "Dodavanje partnera";
+    ViewData["Title"] = "Dodavanje partnera";
 }
 
 <div class="container mt-3">
@@ -27,8 +27,7 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <label asp-for="Image" class="form-label">Logotip partnera</label>
-                    @*<input asp-for="Image" type="file" class="form-control" required>*@
-                    <input asp-for="Image" type="text" class="form-control" required>
+                    <input asp-for="Image" type="file" class="form-control" required>
                     <span asp-validation-for="Image" class="text-danger"></span>
                 </div>
             </div>
