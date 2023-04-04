@@ -1,4 +1,5 @@
 ﻿using EESTEC.Data;
+using EESTEC.Helpers;
 using EESTEC.Interfaces;
 using EESTEC.Models;
 using EESTEC.ViewModel;
@@ -17,10 +18,21 @@ namespace EESTEC.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page=1)
         {
             IEnumerable<LocalEvent> events = await _localEventRepository.GetAll();
-            return View(events);
+
+            //Pagination
+            const int pageSize = 15;
+            if (page < 1)
+                page = 1;
+            int itemsCount = events.Count();
+            var pager = new Pager(itemsCount, page, pageSize);
+            int itemSkip = (page - 1) * pageSize;
+            var data = events.Skip(itemSkip).Take(pager.PageSize).ToList();
+            this.ViewBag.Pager = pager;
+
+            return View(data);
         }
         
         [Authorize]
