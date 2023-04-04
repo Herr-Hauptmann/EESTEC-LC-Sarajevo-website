@@ -15,7 +15,7 @@ namespace EESTEC.Repository
         }
         public async Task<IEnumerable<LocalEvent>> GetAll()
         {
-            return await _context.LocalEvents.ToListAsync();
+            return await _context.LocalEvents.OrderByDescending(e=>e.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<LocalEvent>> GetMostRecent()

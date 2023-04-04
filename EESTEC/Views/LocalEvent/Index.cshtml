@@ -1,44 +1,50 @@
 ﻿@model IEnumerable<LocalEvent>
 @{
-  ViewData["Title"] = "Lokalni događaji";
+    ViewData["Title"] = "Lokalni događaji";
+    var broj = Model.Count();
 }
 
 <div class="container mt-3">
     <h1>Pregled lokalnih događaja</h1>
 
     <div class="d-flex flex-row-reverse">
-         <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
+        <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
     </div>
-    <table class="table mt-4">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Naziv događaja</th>
-                <th scope="col">Opis događaja</th>
-                <th scope="col">Datum događaja</th>
-                <th scope="col">Opcije</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var localEvent in Model)
-            {
+    <div class="table-responsive">
+        <table class="table mt-4">
+            <thead>
                 <tr>
-                    <td class="align-middle" scope="row">@localEvent.Id</td>
-                    <td class="align-middle" scope="row">@localEvent.Title</td>
-                    <td class="align-middle" scope="row">@localEvent.Description</td>
-                    <td class="align-middle" scope="row">@localEvent.Date.ToString("dd.MM.yyyy.")</td>
-                    <td class="align-middle" scope="row">
-                        <div>
-                            <a class="btn btn-success mr-2 my-1 d-block d-lg-inline" asp-controller="LocalEvent" asp-action="Edit" asp-route-id="@localEvent.Id">Uredi</a>
-                            <form asp-controller="LocalEvent" asp-action="Delete", asp-route-id="@localEvent.Id" method="post" class="d-lg-inline">
-                                <button class="btn btn-danger mr-2 d-block d-lg-inline my-1" type="submit">Izbriši</button>
-                            </form>
-                        </div>
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">Naziv događaja</th>
+                    <th scope="col">Tip događaja</th>
+                    <th scope="col">Opis događaja</th>
+                    <th scope="col">Datum događaja</th>
+                    <th scope="col">Opcije</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var localEvent in Model)
+                {
+                    <tr>
+                        <td class="align-middle" scope="row">@broj</td>
+                        <td class="align-middle" scope="row">@localEvent.EventType.ToString()</td>
+                        <td class="align-middle" scope="row">@localEvent.Title</td>
+                        <td class="align-middle" scope="row">@localEvent.Description</td>
+                        <td class="align-middle" scope="row">@localEvent.Date.ToString("dd.MM.yyyy.")</td>
+                        <td class="align-middle" scope="row">
+                            <div>
+                                <a class="btn btn-success mr-2 my-1 d-block" asp-controller="LocalEvent" asp-action="Edit" asp-route-id="@localEvent.Id">Uredi</a>
+                                <form asp-controller="LocalEvent" asp-action="Delete" , asp-route-id="@localEvent.Id" method="post" class="d-lg-inline">
+                                    <button class="btn btn-danger mr-2 d-block my-1" type="submit">Izbriši</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    broj--;
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
