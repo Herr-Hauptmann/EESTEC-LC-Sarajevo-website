@@ -16,11 +16,13 @@
             Pogledaj sve lokalne događaje
         </a>
     </div>
+    <div id="partners" class="mt-5"></div>
 </div>
 
 @section Scripts{
 <script>
-    $("#localEvents").load("/LocalEvent/LocalEventsPartial")
+    $("#partners").load("/partnercategory/showpartial")
     $("#about").load("/Home/AboutPartial")
+    $("#localEvents").load("/LocalEvent/LocalEventsPartial")
 </script>
 }

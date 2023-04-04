@@ -20,6 +20,13 @@ namespace EESTEC.Controllers
             var partnerCategories = await _partnerCategoryRepository.GetAllAsync();
             return View(partnerCategories);
         }
+
+        public async Task<IActionResult> ShowPartial()
+        {
+            var partners = await _partnerCategoryRepository.GetAllAsync();
+            return PartialView("~/Views/PartnerCategory/_PartnersPartial.cshtml", partners);
+        }
+
         [Authorize]
         public IActionResult Create()
         {

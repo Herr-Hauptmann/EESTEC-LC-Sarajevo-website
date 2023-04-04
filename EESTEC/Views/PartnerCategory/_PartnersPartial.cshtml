@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PartnerCategory>
+
+<h2 class="text-center">Partneri</h2>
+<p>Sa ponosom ističemo našu mrežu partnera koji su podržali misiju EESTEC LC Sarajevo i pomogli nam u postizanju naših ciljeva. Ovi partneri su doprinijeli na različite načine, uključujući pružanje finansijske podrške, dijeljenje znanja i stručnosti te saradnju na projektima.</p>
+<p>Zahvalni smo za podršku i suradnju naših partnera, a radujemo se nastavku naših plodnih partnerstava u budućnosti. Zajedno nastojimo promovirati razvoj znanja i vještina iz područja inženjerstva i tehnologije među studentima te doprinositi rastu i prosper</p>
+@foreach(var category in Model)
+{
+    if (category.Partners.Count == 0)
+        continue;
+    <div class="mt-3">
+         <h3 class="text-center">@category.Name</h3>
+        <div class="row d-flex justify-content-center">
+            @foreach(var partner in category.Partners)
+            {
+                <div class="mt-3 py-4 col-6 col-md-4 col-lg-3 d-flex flex-column justify-content-center align-content-center"> 
+                    <img src="@partner.Image" alt="@partner.Name" class="img-fluid" />
+                    <a href="@partner.Website" target="_blank" class="text-center">@partner.Name</a>
+                </div>
+            }
+        </div>
+
+    </div>
+}
