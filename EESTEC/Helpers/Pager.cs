@@ -8,13 +8,14 @@
         public int TotalPages { get; private set; }
         public int StartPage { get; private set; }
         public int EndPage { get; private set; }
+        public string SearchParameter { get; private set; }
 
         public Pager()
         {
 
         }
 
-        public Pager(int totalItems, int page, int pageSize = 10)
+        public Pager(int totalItems, int page, int pageSize = 10, string search = "")
         {
             int totalPages = (int)Math.Ceiling((decimal)totalItems/(decimal)pageSize);
             int currentPage = page;
@@ -36,6 +37,7 @@
                 }
             }
 
+            SearchParameter = search;
             TotalPages = totalPages;
             CurrentPage = currentPage;
             PageSize = pageSize;

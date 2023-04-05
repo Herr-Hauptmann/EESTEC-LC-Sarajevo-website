@@ -18,16 +18,16 @@ namespace EESTEC.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(int page=1, string search="")
         {
-            IEnumerable<LocalEvent> events = await _localEventRepository.GetAll();
+            IEnumerable<LocalEvent> events = await _localEventRepository.GetAll(search);
 
             //Pagination
-            const int pageSize = 15;
+            const int pageSize = 5;
             if (page < 1)
                 page = 1;
             int itemsCount = events.Count();
-            var pager = new Pager(itemsCount, page, pageSize);
+            var pager = new Pager(itemsCount, page, pageSize, search);
             int itemSkip = (page - 1) * pageSize;
             var data = events.Skip(itemSkip).Take(pager.PageSize).ToList();
             this.ViewBag.Pager = pager;

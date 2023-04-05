@@ -2,7 +2,7 @@
 @model IEnumerable<LocalEvent>
 @{
     ViewData["Title"] = "Lokalni događaji";
-    
+
 
     //Pagination
     Pager pager = new Pager();
@@ -13,13 +13,19 @@
         pageNo = pager.CurrentPage;
     }
 
-    var itemNo = (pageNo -1)*(pager.PageSize)+1;
+    var itemNo = (pageNo - 1) * (pager.PageSize) + 1;
 }
 
 <div class="container mt-3">
     <h1>Pregled lokalnih događaja</h1>
 
-    <div class="d-flex flex-row-reverse">
+    <div class="d-flex justify-content-between">
+        <form asp-controller="LocalEvent" asp-action="Index" method="get">
+            <div class="btn-group">
+                <input class="form-control" type="text" name="search" placeholder="Unesite pojam za pretragu..." />
+                <button class="btn btn-outline-dark" type="submit">Pretraži</button>
+            </div>
+        </form>
         <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
     </div>
     <div class="table-responsive">

@@ -4,7 +4,7 @@ namespace EESTEC.Interfaces
 {
     public interface ILocalEventRepository
     {
-        Task<IEnumerable<LocalEvent>> GetAll();
+        Task<IEnumerable<LocalEvent>> GetAll(string search="");
         Task<LocalEvent> GetById(int id);
 
         Task<IEnumerable<LocalEvent>> GetMostRecent();

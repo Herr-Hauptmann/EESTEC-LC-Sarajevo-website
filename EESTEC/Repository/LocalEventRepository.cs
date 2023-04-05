@@ -13,9 +13,11 @@ namespace EESTEC.Repository
         {
             _context = context;
         }
-        public async Task<IEnumerable<LocalEvent>> GetAll()
+        public async Task<IEnumerable<LocalEvent>> GetAll(string search)
         {
-            return await _context.LocalEvents.OrderByDescending(e=>e.Date).ToListAsync();
+            if (search == null || search.Length == 0)
+                return await _context.LocalEvents.OrderByDescending(e=>e.Date).ToListAsync();
+            return await _context.LocalEvents.Where(l => l.Title.Contains(search) || l.Description.Contains(search)).OrderByDescending(e => e.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<LocalEvent>> GetMostRecent()
@@ -48,5 +50,7 @@ namespace EESTEC.Repository
             var saved = _context.SaveChanges();
             return saved > 0;
         }
+
+
     }
 }
