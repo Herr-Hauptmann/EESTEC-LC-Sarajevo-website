@@ -2,7 +2,7 @@
 @model IEnumerable<LocalEvent>
 @{
     ViewData["Title"] = "Lokalni događaji";
-    var broj = Model.Count();
+    
 
     //Pagination
     Pager pager = new Pager();
@@ -12,6 +12,8 @@
         pager = ViewBag.Pager;
         pageNo = pager.CurrentPage;
     }
+
+    var itemNo = (pageNo -1)*(pager.PageSize)+1;
 }
 
 <div class="container mt-3">
@@ -36,9 +38,9 @@
                 @foreach (var localEvent in Model)
                 {
                     <tr>
-                        <td class="align-middle" scope="row">@broj</td>
-                        <td class="align-middle" scope="row">@localEvent.EventType.ToString()</td>
+                        <td class="align-middle" scope="row">@itemNo</td>
                         <td class="align-middle" scope="row">@localEvent.Title</td>
+                        <td class="align-middle" scope="row">@localEvent.EventType.ToString()</td>
                         <td class="align-middle" scope="row">@localEvent.Description</td>
                         <td class="align-middle" scope="row">@localEvent.Date.ToString("dd.MM.yyyy.")</td>
                         <td class="align-middle" scope="row">
@@ -50,7 +52,7 @@
                             </div>
                         </td>
                     </tr>
-                    broj--;
+                    itemNo++;
                 }
             </tbody>
         </table>
