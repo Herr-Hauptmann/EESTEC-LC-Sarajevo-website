@@ -18,12 +18,11 @@ namespace EESTEC.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int page=1, string search="")
+        public async Task<IActionResult> Index(int page=1, string search="", int pageSize = 15)
         {
             IEnumerable<LocalEvent> events = await _localEventRepository.GetAll(search);
 
             //Pagination
-            const int pageSize = 5;
             if (page < 1)
                 page = 1;
             int itemsCount = events.Count();

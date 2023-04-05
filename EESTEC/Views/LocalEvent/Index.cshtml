@@ -22,6 +22,12 @@
     <div class="d-flex justify-content-between">
         <form asp-controller="LocalEvent" asp-action="Index" method="get">
             <div class="btn-group">
+                <select class="form-select me-1" name="pageSize" onchange="this.form.submit()">>
+                    @for (var p = 5; p <= 25; p+=5)
+                    {
+                        <option value="@p" selected="@(pager.PageSize == p)">@p</option>
+                    }
+                </select>
                 <input class="form-control" type="text" name="search" placeholder="Unesite pojam za pretragu..." />
                 <button class="btn btn-outline-dark" type="submit">Pretraži</button>
             </div>
