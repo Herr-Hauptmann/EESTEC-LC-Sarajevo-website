@@ -11,25 +11,25 @@
             @if (Model.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="1">Prva</a>
+                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="1" asp-route-pageSize="@Model.PageSize">Prva</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.CurrentPage-1)">Prethodna</a>
+                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.CurrentPage-1)" asp-route-pageSize="@Model.PageSize">Prethodna</a>
                 </li>
             }
             @for (var p = Model.StartPage; p <= Model.EndPage; p++)
             {
                 <li class="page-item @(p == Model.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@p">@p</a>
+                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@p" asp-route-pageSize="@Model.PageSize">@p</a>
                 </li>
             }
             @if (Model.CurrentPage < Model.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.CurrentPage+1)">Sljedeća</a>
+                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.CurrentPage+1)" asp-route-pageSize="@Model.PageSize">Sljedeća</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.TotalPages)">Posljednja</a>
+                    <a class="page-link" asp-controller="LocalEvent" asp-action="Index" asp-route-search="@Model.SearchParameter" asp-route-page="@(Model.TotalPages)" asp-route-pageSize="@Model.PageSize">Posljednja</a>
                 </li>
             }
         </ul>

@@ -28,8 +28,8 @@
                         <option value="@p" selected="@(pager.PageSize == p)">@p</option>
                     }
                 </select>
-                <input class="form-control" type="text" name="search" placeholder="Unesite pojam za pretragu..." />
-                <button class="btn btn-outline-dark" type="submit">Pretraži</button>
+                <input class="form-control" type="text" name="search" placeholder="Unesite pojam za pretragu..." value="@pager.SearchParameter" />
+                <button class="btn btn-outline-dark" type="submit" >Pretraži</button>
             </div>
         </form>
         <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
