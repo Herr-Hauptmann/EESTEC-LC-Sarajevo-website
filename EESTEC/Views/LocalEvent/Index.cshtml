@@ -19,20 +19,22 @@
 <div class="container mt-3">
     <h1>Pregled lokalnih događaja</h1>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between flex-column flex-md-row">
         <form asp-controller="LocalEvent" asp-action="Index" method="get">
-            <div class="btn-group">
-                <select class="form-select me-1" name="pageSize" onchange="this.form.submit()">>
+            <div class="d-flex justify-contentalign-content-between">
+                <select class="form-select me-1 w-25" name="pageSize" onchange="this.form.submit()">>
                     @for (var p = 5; p <= 25; p+=5)
                     {
                         <option value="@p" selected="@(pager.PageSize == p)">@p</option>
                     }
                 </select>
-                <input class="form-control" type="text" name="search" placeholder="Unesite pojam za pretragu..." value="@pager.SearchParameter" />
-                <button class="btn btn-outline-dark" type="submit" >Pretraži</button>
+                <div class="btn-group">
+                    <input class="form-control" type="text" name="search" placeholder="Unesite pojam..." value="@pager.SearchParameter" />
+                    <button class="btn btn-outline-dark" type="submit" >Pretraži</button>
+                </div>
             </div>
         </form>
-        <a class="btn btn-outline-dark" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
+        <a class="btn btn-outline-dark mt-2 mt-md-0" asp-controller="LocalEvent" asp-action="Create">Dodaj lokalni event</a>
     </div>
     <div class="table-responsive">
         <table class="table mt-4">
@@ -40,8 +42,8 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Naziv događaja</th>
-                    <th scope="col">Tip događaja</th>
-                    <th scope="col">Opis događaja</th>
+                    <th class="d-none d-md-table-cell" scope="col">Tip događaja</th>
+                    <th class="d-none d-md-table-cell" scope="col">Opis događaja</th>
                     <th scope="col">Datum događaja</th>
                     <th scope="col">Opcije</th>
                 </tr>
@@ -52,8 +54,8 @@
                     <tr>
                         <td class="align-middle" scope="row">@itemNo</td>
                         <td class="align-middle" scope="row">@localEvent.Title</td>
-                        <td class="align-middle" scope="row">@localEvent.EventType.ToString()</td>
-                        <td class="align-middle" scope="row">@localEvent.Description</td>
+                        <td class="align-middle d-none d-md-table-cell" scope="row">@localEvent.EventType.ToString()</td>
+                        <td class="align-middle d-none d-md-table-cell" scope="row">@localEvent.Description</td>
                         <td class="align-middle" scope="row">@localEvent.Date.ToString("dd.MM.yyyy.")</td>
                         <td class="align-middle" scope="row">
                             <div>
@@ -68,8 +70,8 @@
                 }
             </tbody>
         </table>
-        <partial name="_Pagination" model="@pager" />
     </div>
+    <partial name="_Pagination" model="@pager" />
 </div>
 
 
