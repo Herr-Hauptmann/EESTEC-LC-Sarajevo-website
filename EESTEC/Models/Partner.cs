@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace EESTEC.Models
 {
@@ -12,5 +13,6 @@ namespace EESTEC.Models
         public string Image { get; set; }
         public string Website { get; set; }
         public PartnerCategory PartnerCategory { get; set; }
+        public string? AccountNumber { get; set; }
     }
 }

@@ -11,6 +11,7 @@ namespace EESTEC.ViewModel
         public IFormFile? Image { get; set; }
         public string? ImageUrl { get; set; }
         public string Website { get; set; }
+        public string? AccountNumber { get; set; }
 
         [Required(ErrorMessage = "Obavezno odabrati kategoriju partnera")]
         public string SelectedCategory { get; set; }

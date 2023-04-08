@@ -2,6 +2,7 @@
 using EESTEC.Models;
 using EESTEC.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -12,12 +13,13 @@ namespace EESTEC.Controllers
         private readonly IPartnerCategoryRepository _partnerCategoryRepository;
         private readonly IPartnerRepository _partnerRepository;
         private readonly IPhotoService _photoService;
-
-        public PartnerController(IPartnerCategoryRepository partnerCategoryRepository, IPartnerRepository partnerRepository, IPhotoService photoService)
+        private readonly IDataProtector _dataProtector;
+        public PartnerController(IPartnerCategoryRepository partnerCategoryRepository, IPartnerRepository partnerRepository, IPhotoService photoService, IDataProtectionProvider dataProvider, IConfiguration configuration)
         {
             _partnerCategoryRepository = partnerCategoryRepository;
             _partnerRepository = partnerRepository;
             _photoService = photoService;
+            _dataProtector = dataProvider.CreateProtector(configuration.GetValue<String>("ProtectionString"));
         }
 
         private async Task<List<SelectListItem>> GetPartnerCategoriesAsync()
@@ -58,9 +60,13 @@ namespace EESTEC.Controllers
             var partner = await _partnerRepository.GetByIdAsync(id);
             if (partner == null)
                 return NotFound();
+
+            string decryptedAccountNumber = (partner.AccountNumber == null) ? "" : _dataProtector.Unprotect(partner.AccountNumber);
+
             var partnerVM = new EditPartnerViewModel
             {
                 Name = partner.Name,
+                AccountNumber = decryptedAccountNumber,
                 Image = null,
                 ImageUrl = partner.Image,
                 SelectedCategory = partner.PartnerCategory.Id.ToString(),
@@ -104,9 +110,12 @@ namespace EESTEC.Controllers
                 return View(partnerVM);
             }
 
+            string? encryptedAccountNumber = (partnerVM.AccountNumber == null) ? null : _dataProtector.Protect(partnerVM.AccountNumber);
+
             var partner = new Partner
             {
                 Name = partnerVM.Name,
+                AccountNumber = encryptedAccountNumber,
                 PartnerCategory = partnerCategory,
                 Website = partnerVM.Website,
                 Image = result.Url.ToString(),
@@ -157,7 +166,9 @@ namespace EESTEC.Controllers
 
             partner.PartnerCategory = partnerCategory;
             partner.Website = partnerVM.Website;
-            partner.Image = partnerVM.ImageUrl;
+            partner.AccountNumber = (partnerVM.AccountNumber == null) ? null : _dataProtector.Protect(partnerVM.AccountNumber);
+            if (partnerVM.ImageUrl!= null)
+                partner.Image = partnerVM.ImageUrl;
             partner.Name = partnerVM.Name;
 
             _partnerRepository.Update(partner);

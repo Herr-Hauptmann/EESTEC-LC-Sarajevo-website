@@ -15,5 +15,7 @@ namespace EESTEC.ViewModel
         [Required(ErrorMessage = "Obavezno odabrati kategoriju partnera")]
         public string SelectedCategory { get; set; }
         public List<SelectListItem>? PartnerCategoriesSelectList { get; set; }
+
+        public string? AccountNumber { get; set; }
     }
 }

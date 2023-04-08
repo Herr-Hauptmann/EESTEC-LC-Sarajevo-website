@@ -22,6 +22,7 @@ builder.Services.AddScoped<IPartnerCategoryRepository, PartnerCategoryRepository
 builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddDataProtection();
 
 var app = builder.Build();
 
