@@ -14,6 +14,7 @@ namespace EESTEC.Data
         public DbSet<BoardMember> BoardMembers { get; set; }
         public DbSet<InternationalEvent> InternationalEvents { get; set; }
         public DbSet<LocalEvent> LocalEvents { get; set; }
+        public DbSet<EventFile> Files { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Partner> Partners { get; set; }
         public DbSet<PartnerCategory> PartnerCategories { get; set; }

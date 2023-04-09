@@ -6,6 +6,7 @@ using EESTEC.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace EESTEC.Controllers
 {
     public class LocalEventController : Controller
@@ -18,7 +19,7 @@ namespace EESTEC.Controllers
         }
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> Index(int page=1, string search="", int pageSize = 15, string sort = "")
+        public async Task<IActionResult> Index(int page=1, string search="", int pageSize = 15)
         {
             IEnumerable<LocalEvent> events = await _localEventRepository.GetAll(search);
 
@@ -38,13 +39,29 @@ namespace EESTEC.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return View(new CreateLocalEventViewModel());
         }
         [HttpPost]
-        public IActionResult Create(LocalEvent localEvent)
+        public IActionResult Create(CreateLocalEventViewModel localEventVM, IFormFile[] Files)
         {
             if (!ModelState.IsValid)
-                return View(localEvent);
+                return View(localEventVM);
+
+            foreach(var file in Files)
+            {
+                if (file.ContentType != "application/pdf")
+                {
+                    return StatusCode(500, "Prilozi moraju biti u .pdf formatu");
+                }
+            }
+
+            var localEvent = new LocalEvent
+            {
+                Date = localEventVM.Date,
+                Title = localEventVM.Title,
+                EventType = localEventVM.EventType,
+                Description = localEventVM.Description,
+            };
             _localEventRepository.Create(localEvent);
             return RedirectToAction("Index");
         }

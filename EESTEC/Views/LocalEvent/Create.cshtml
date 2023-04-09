@@ -1,15 +1,13 @@
 ﻿@using EESTEC.Data.Enum
-@model LocalEvent;
-@section Scripts {
-<script type="text/javascript" src="~/js/formValidation.js" defer></script>
-}
+@using EESTEC.ViewModel
+@model CreateLocalEventViewModel;
 
 @{
-  ViewData["Title"] = "Kreiraj događaj";
+    ViewData["Title"] = "Kreiraj događaj";
 }
 <div class="container mt-3">
     <h1>Kreiranje lokalnog eventa</h1>
-    <form method="post" asp-action="Create" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form method="post" asp-action="Create" enctype="multipart/form-data" class="needs-validation" id="createForm" novalidate>
         <div class=mb-3>
             <label for="title" class="form-label">Naziv lokalnog događaja</label>
             <input type="text" class="form-control" id="title" asp-for="Title" required>
@@ -55,9 +53,61 @@
                 Opis događaja je obavezan!
             </div>
         </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis događaja</label>
+            <input type="file" class="filepond"/>
+        </div>
+
         <div>
             <button class="btn btn-primary d-inline mr-2" type="submit">Sačuvaj</button>
-            <a class="btn btn-danger d-inline mr-2" type="reset"  asp-area="" asp-controller="LocalEvent" asp-action="Index">Odustani</a>
+            <a class="btn btn-danger d-inline mr-2" type="reset" asp-area="" asp-controller="LocalEvent" asp-action="Index">Odustani</a>
         </div>
     </form>
+
+    @section Scripts {
+    <script type="text/javascript" src="~/js/formValidation.js" defer></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+        $(document).ready(function(e){
+        pond = FilePond.create(
+            document.querySelector('.filepond'), {
+                allowMultiple: true,
+                instantUpload: false,
+                allowProcess: false
+            });
+
+        $("#createForm").submit(function (e) {
+          e.preventDefault();
+          var formdata = new FormData(this);
+          // append FilePond files into the form data
+          pondFiles = pond.getFiles();
+          for (var i = 0; i < pondFiles.length; i++) {
+              // append the blob file
+              formdata.append('files', pondFiles[i].file);
+          }
+
+          $.ajax({
+            url: "/LocalEvent/Create",
+            data: formdata,
+
+            processData: false,
+            contentType: false,
+            method:"post",
+            success: function(){
+                location.href = "/LocalEvent/Index"
+            },
+            error: function(response){
+                alert(response.responseText)
+            }
+          });
+
+        })
+        });
+
+    </script>
+    }
 </div>

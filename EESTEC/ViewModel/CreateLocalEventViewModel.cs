@@ -1,12 +1,10 @@
 ﻿using EESTEC.Data.Enum;
 using System.ComponentModel.DataAnnotations;
 
-namespace EESTEC.Models
+namespace EESTEC.ViewModel
 {
-    public class LocalEvent
+    public class CreateLocalEventViewModel
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
@@ -15,6 +13,5 @@ namespace EESTEC.Models
         public EventType EventType { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        public ICollection<EventFile> Files { get; set; }
     }
 }
