@@ -12,10 +12,12 @@ namespace EESTEC.Controllers
     public class LocalEventController : Controller
     {
         private readonly ILocalEventRepository _localEventRepository;
+        private readonly IEventFileRepository _eventFileRepository;
 
-        public LocalEventController(ILocalEventRepository localEventRepository)
+        public LocalEventController(ILocalEventRepository localEventRepository, IEventFileRepository eventFileRepository)
         {
             _localEventRepository = localEventRepository;
+            _eventFileRepository = eventFileRepository;
         }
         [Authorize]
         [HttpGet]
@@ -62,7 +64,13 @@ namespace EESTEC.Controllers
                 EventType = localEventVM.EventType,
                 Description = localEventVM.Description,
             };
-            _localEventRepository.Create(localEvent);
+            localEvent = _localEventRepository.Create(localEvent);
+
+            foreach(var file in Files)
+            {
+                _eventFileRepository.Create(file, localEvent);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -114,6 +122,12 @@ namespace EESTEC.Controllers
             var localEvent = await _localEventRepository.GetById(id);
             if (localEvent == null)
                 return RedirectToAction("Index");
+
+            foreach(var file in localEvent.Files)
+            {
+                _eventFileRepository.Delete(file);
+            }
+
             _localEventRepository.Delete(localEvent);
             return RedirectToAction("Index");
         }

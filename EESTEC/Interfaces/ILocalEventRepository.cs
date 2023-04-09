@@ -8,7 +8,7 @@ namespace EESTEC.Interfaces
         Task<LocalEvent> GetById(int id);
 
         Task<IEnumerable<LocalEvent>> GetMostRecent();
-        bool Create(LocalEvent localEvent);
+        LocalEvent Create(LocalEvent localEvent);
         bool Update(LocalEvent localEvent);
         bool Delete(LocalEvent localEvent);
         bool Save();

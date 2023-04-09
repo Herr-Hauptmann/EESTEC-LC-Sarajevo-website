@@ -6,9 +6,9 @@ namespace EESTEC.Interfaces
     {
         Task<IEnumerable<EventFile>> GetAll(int eventId);
         Task<LocalEvent> GetById(int id);
-        bool Create(IFormFile file);
+        Task<bool> Create(IFormFile file, LocalEvent localEvent);
         bool Update(IFormFile file);
-        bool Delete(int id);
+        bool Delete(EventFile file);
         bool Save();
     }
 }

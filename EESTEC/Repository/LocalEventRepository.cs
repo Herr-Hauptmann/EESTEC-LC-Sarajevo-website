@@ -24,10 +24,11 @@ namespace EESTEC.Repository
         {
             return await _context.LocalEvents.OrderByDescending(e => e.Date).Take(6).ToListAsync();
         }
-        public bool Create(LocalEvent localEvent)
+        public LocalEvent Create(LocalEvent localEvent)
         {
             _context.Add(localEvent);
-            return Save();
+            Save();
+            return localEvent;
         }
 
         public bool Delete(LocalEvent localEvent)
@@ -37,7 +38,7 @@ namespace EESTEC.Repository
         }
         public async Task<LocalEvent> GetById(int id)
         {
-            var localEvent = await _context.LocalEvents.FindAsync(id);
+            var localEvent = await _context.LocalEvents.Include(localEvent => localEvent.Files).SingleOrDefaultAsync(p => p.Id == id);
             return localEvent;
         }
         public bool Update(LocalEvent localEvent)

@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 builder.Services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 builder.Services.AddScoped<ILocalEventRepository, LocalEventRepository>();
+builder.Services.AddScoped<IEventFileRepository, EventFileRepository>();
 builder.Services.AddScoped<IPartnerCategoryRepository, PartnerCategoryRepository>();
 builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
