@@ -46,25 +46,16 @@ namespace EESTEC.Repository
             return Save();
         }
 
-        public Task<IEnumerable<EventFile>> GetAll(int eventId)
+        public async Task<EventFile> GetById(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<LocalEvent> GetById(int id)
-        {
-            throw new NotImplementedException();
+            var file = await _context.EventFiles.FindAsync(id);
+            return file;
         }
 
         public bool Save()
         {
             var saved = _context.SaveChanges();
             return saved > 0;
-        }
-
-        public bool Update(IFormFile localEvent)
-        {
-            throw new NotImplementedException();
         }
     }
 }

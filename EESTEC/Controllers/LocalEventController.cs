@@ -174,5 +174,18 @@ namespace EESTEC.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Info(int id)
+        {
+            var LocalEvent = await _localEventRepository.GetById(id);
+            return View(LocalEvent);
+        }
+
+        public async Task<IActionResult> ShowDocument(int id)
+        {
+            var file = await _eventFileRepository.GetById(id);
+            var stream = new FileStream(file.Path, FileMode.Open);
+            return new FileStreamResult(stream, "application/pdf");
+        }
     }
 }

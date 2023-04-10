@@ -1,0 +1,21 @@
+﻿@model LocalEvent
+@{
+    ViewData["Title"] = "Pregled događaja";
+}
+
+<div class="container mt-4">
+    <h1>Informacije o događaju "@Model.Title"</h1>
+    <p class="mt-2"><strong>Datum održavanja: </strong>@Model.Date.ToString("dd.MM.yyyy.")</p>
+    <p class="mt-2"><strong>Tip događaja: </strong>@Model.EventType.ToString()</p>
+    <p class="mt-2"><strong>Informacije o događaju: </strong>@Model.Description</p>
+
+    <h2 class="mt-2">Dokumenti vezani za projekat</h2>
+    <ul class="list-group">
+        @foreach (var file in @Model.Files)
+        {
+            <li class="list-group-item">
+                <a class="mb-1" asp-action="ShowDocument" asp-controller="LocalEvent" asp-route-id="@file.Id" target="_blank">@file.Name</a>
+            </li>
+        }
+    </ul>
+</div>

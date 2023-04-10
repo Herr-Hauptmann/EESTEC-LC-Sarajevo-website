@@ -54,6 +54,7 @@
 .flag-wrapper {
     position: relative;
     display: inline-block;
+    cursor: pointer;
 }
 
 .flag {
@@ -181,6 +182,7 @@
 
     .flag-wrapper {
         text-align: center;
+        cursor: pointer;
     }
 
     .flag {
