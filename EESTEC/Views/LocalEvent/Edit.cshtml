@@ -1,18 +1,15 @@
 ﻿@using EESTEC.Data.Enum
 @using EESTEC.ViewModel
 @model EditLocalEventViewModel;
-@section Scripts {
-    <script type="text/javascript" src="~/js/formValidation.js" defer></script>
-}
 @{
-  ViewData["Title"] = "Uredi lokalni događaj";
+    ViewData["Title"] = "Uredi lokalni događaj";
 }
 <div class="container mt-3">
     <h1>Uređivanje lokalnog eventa</h1>
-    <form method="post" asp-action="Edit" enctype="multipart/form-data" class="needs-validation" novalidate>
+    <form method="post" asp-action="Edit" enctype="multipart/form-data" class="needs-validation" id="updateForm" novalidate>
         <div class=mb-3>
             <label asp-for="Title" class="form-label">Naziv lokalnog događaja</label>
-            <input asp-for="Title" type="text" class="form-control" id="title"  required>
+            <input asp-for="Title" type="text" class="form-control" id="title" required>
             <span asp-validation-for="Title" class="text-danger"></span>
             <div class="valid-feedback">
                 Sve okej!
@@ -23,11 +20,11 @@
         </div>
         <div class="row">
             <div class="col-12 col-lg-6 mb-3">
-                <label asp-for="EventType"  for="type" class="form-label">Tip događaja</label>
+                <label asp-for="EventType" for="type" class="form-label">Tip događaja</label>
                 <select asp-for="EventType" class="form-select" id="type" asp-items="Html.GetEnumSelectList<EventType>()" required>
                     <option selected="selected" value="">Odaberi tip događaja</option>
                 </select>
-                 <span asp-validation-for="EventType" class="text-danger"></span>
+                <span asp-validation-for="EventType" class="text-danger"></span>
                 <div class="valid-feedback">
                     Sve okej!
                 </div>
@@ -59,9 +56,64 @@
                 Opis događaja je obavezan!
             </div>
         </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Opis događaja</label>
+            <input type="file" class="filepond" />
+        </div>
         <div>
             <button class="btn btn-primary d-inline mr-2" type="submit">Sačuvaj</button>
-            <a class="btn btn-danger d-inline mr-2" type="reset"  asp-area="" asp-controller="LocalEvent" asp-action="Index">Odustani</a>
+            <a class="btn btn-danger d-inline mr-2" type="reset" asp-area="" asp-controller="LocalEvent" asp-action="Index">Odustani</a>
         </div>
     </form>
+
+
+    @section Scripts {
+    <script type="text/javascript" src="~/js/formValidation.js" defer></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script>
+        $(document).ready(function(e){
+        pond = FilePond.create(
+            document.querySelector('.filepond'), {
+                allowMultiple: true,
+                instantUpload: false,
+                allowProcess: false
+            });
+
+        @foreach (var file in @Model.Files){
+            @Html.Raw("pond.addFile(\"" + file.Path + "\");") 
+        }
+
+        $("#updateForm").submit(function (e) {
+          e.preventDefault();
+          var formdata = new FormData(this);
+          // append FilePond files into the form data
+          pondFiles = pond.getFiles();
+          for (var i = 0; i < pondFiles.length; i++) {
+              // append the blob file
+              formdata.append('files', pondFiles[i].file);
+          }
+
+          $.ajax({
+            url: "/LocalEvent/Edit/@(ViewBag.Id)",
+            data: formdata,
+
+            processData: false,
+            contentType: false,
+            method:"post",
+            success: function(){
+                location.href = "/LocalEvent/Index"
+            },
+            error: function(response){
+                alert(response.responseText)
+            }
+          });
+
+        })
+        });
+
+    </script>
+    }
 </div>

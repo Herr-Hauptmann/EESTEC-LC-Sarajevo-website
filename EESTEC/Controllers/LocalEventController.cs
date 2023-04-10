@@ -89,23 +89,49 @@ namespace EESTEC.Controllers
                 Description = localEvent.Description,
                 Date = localEvent.Date,
                 EventType = localEvent.EventType,
+                Files = localEvent.Files,
             };
+
+            foreach(var file in editVM.Files)
+            {
+                file.Path = "/EventFiles/" + file.Name;
+            }
+            ViewBag.Id = id;
             return View(editVM);
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, EditLocalEventViewModel eventVM)
+        public async Task<IActionResult> Edit(int id, EditLocalEventViewModel eventVM, IFormFile[] Files)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Greška pri uređivanju lokalnog događaja!");
                 return View("Edit", eventVM);
             }
+
+            foreach (var file in Files)
+            {
+                if (file.ContentType != "application/pdf")
+                {
+                    return StatusCode(500, "Prilozi moraju biti u .pdf formatu");
+                }
+            }
+
             var localEvent = await _localEventRepository.GetById(id);
             if (localEvent==null)
                 return View("Edit", eventVM);
-            
+
+            foreach (var file in localEvent.Files)
+            {
+                _eventFileRepository.Delete(file);
+            }
+
+            foreach (var file in Files)
+            {
+                _eventFileRepository.Create(file, localEvent);
+            }
+
             localEvent.Date = eventVM.Date;
             localEvent.EventType = eventVM.EventType;
             localEvent.Title = eventVM.Title;

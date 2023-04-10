@@ -1,4 +1,5 @@
 ﻿using EESTEC.Data.Enum;
+using EESTEC.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace EESTEC.ViewModel
@@ -13,5 +14,7 @@ namespace EESTEC.ViewModel
         public EventType EventType { get; set; }
         [Required]
         public DateTime Date { get; set; }
+
+        public IEnumerable<EventFile>? Files { get; set; }
     }
 }

@@ -20,11 +20,7 @@ namespace EESTEC.Repository
 
             var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\EventFiles", fileName);
 
-            using (var fileSteam = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(fileSteam);
-            }
-            //your logic to save filePath to database, for example
+            //Add file to database
             var eventFile = new EventFile
             {
                 Name = fileName,
@@ -32,7 +28,15 @@ namespace EESTEC.Repository
                 LocalEvent = localEvent
             };
             _context.EventFiles.Add(eventFile);
-            return Save();
+            var result = Save();
+
+            //save file locally
+            using (var fileSteam = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileSteam);
+            }
+            
+            return result;
         }
 
         public bool Delete(EventFile file)
